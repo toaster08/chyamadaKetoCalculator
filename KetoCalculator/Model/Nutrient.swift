@@ -1,0 +1,61 @@
+//
+//  Calculation.swift
+//  KetoCalculator
+//
+//  Created by toaster on 2021/10/30.
+//
+
+import Foundation
+
+enum KetogenicIndexType {
+    case ketogenicRatio // ケトン比
+    case ketogenicIndex // ケトン指数
+    case ketogenicValue // ケトン値
+}
+
+struct PFC { // Protein Fat Carbohydrate
+    var protein: Double
+    var fat: Double
+    var carbohydrate: Double
+
+    var energy: Double { // Atwaterの係数
+        (protein * 4)
+      + (fat * 9)
+      + (carbohydrate * 4)
+    }
+    var ketogenicRatio: Double {  // ケトン比の算出
+        fat / (protein + carbohydrate)
+    }
+
+    var ketogenicIndex: Double { // ケトン指数の算出
+        (0.9 * fat + 0.46 * protein) / (carbohydrate + 0.1 * fat + 0.58 * protein)
+    }
+
+    // 目標ケトン比に対する必要脂質量の過不足
+    func lipidRequirementInKetogenicRatio(for targetValue: Double) -> Double {
+       return (targetValue - ketogenicRatio) * (protein + carbohydrate)
+    }
+
+    // 目標ケトン指数に対する必要脂質量の過不足
+    func lipidRequirementInKetogenicIndex(for targetValue: Double) -> Double {
+       return (0.46 * protein - targetValue * (carbohydrate + 0.58 * protein)) / ( 0.1 * targetValue - 0.9) - fat
+    }
+}
+
+struct PFS { // Protein Fat Sugar
+    var protein: Double
+    var fat: Double
+    var sugar: Double
+    var energy: Double { // Atwaterの係数
+        (protein * 4)
+      + (fat * 9)
+      + (sugar * 4)
+    }
+    var ketogenicValue: Double { // ケトン値の算出
+        (0.9 * fat + 0.46 * protein) / (sugar + 0.1 * fat + 0.58 * protein)
+    }
+    // 目標ケトン値に対する必要脂質量の過不足
+    func lipidRequirementInKetogenicValue(for targetValue: Double) -> Double {
+      return (0.46 * protein - targetValue * (sugar + 0.58 * protein)) / (0.1 * targetValue - 0.9) - fat
+    }
+}
