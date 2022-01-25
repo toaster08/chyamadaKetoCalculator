@@ -127,7 +127,6 @@ final class CalculatorViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print("intrinsicContentSize:\(inputTextFieldsView.intrinsicContentSize)")
 
         guard let postCollectionFlowLayout
                 = articleFeedCollectionView.collectionViewLayout
@@ -141,10 +140,10 @@ final class CalculatorViewController: UIViewController {
             textFieldsStackView.setCustomSpacing(5, after: proteinStackView)
             textFieldsStackView.setCustomSpacing(5, after: fatStackView)
             textFieldsStackView.setCustomSpacing(5, after: carbohydrateStackView)
+            calculateButton.layer.cornerRadius = calculateButton.frame.width / 2
         }
 
         setupGradient(frame: inputTextFieldsView.bounds)
-        calculateButton.layer.cornerRadius = calculateButton.frame.width / 2
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -172,19 +171,20 @@ final class CalculatorViewController: UIViewController {
     private func setupGradient(frame: CGRect) {
         inputTextFieldsView.map {
             let gradientLayer = CAGradientLayer()
-            let gradientFrameHeight: CGFloat
 
-            if frame.height < 220 {
-                gradientFrameHeight = frame.height
-            } else {
-                gradientFrameHeight = frame.height
-            }
-
-            gradientLayer.frame
-                = CGRect(x: frame.minX,
-                         y: frame.minY,
-                         width: frame.width,
-                         height: gradientFrameHeight)
+//            let gradientFrameHeight: CGFloat
+//            if frame.height < 220 {
+//                gradientFrameHeight = frame.height
+//            } else {
+//                gradientFrameHeight = frame.height
+//            }
+//
+//            gradientLayer.frame
+//                = CGRect(x: frame.minX,
+//                         y: frame.minY,
+//                         width: frame.width,
+//                         height: gradientFrameHeight)
+            gradientLayer.frame = $0.bounds
             let color1 = #colorLiteral(red: 0.9908007979, green: 0.6731317639, blue: 0.6572402716, alpha: 1).cgColor
             let color2 = #colorLiteral(red: 0.9592704177, green: 0.6589156985, blue: 0.5547221899, alpha: 1).cgColor
             let color3 = #colorLiteral(red: 0.9723681808, green: 0.8347607255, blue: 0.546847403, alpha: 1).cgColor

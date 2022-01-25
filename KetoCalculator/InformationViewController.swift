@@ -43,7 +43,7 @@ final class InformationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSettingHasSaved()
-//        setup(setting: hasSaved)
+        //        setup(setting: hasSaved)
 
         if hasSaved {
             guard let currentKetogenicIndexType
@@ -60,12 +60,21 @@ final class InformationViewController: UIViewController {
             display(lipidRequirement: lipidRequirement,
                     currentEnergy: energyAmount,
                     TEE: settingEnergyExpenditure)
+        } else {
+            guard let currentKetogenicIndexType = currentKetogenicIndexType,
+                  let currentEnergyAmount = calculateEnergyAmount(in: currentKetogenicIndexType) else {
+                return
+            }
+            currentEnergyLabel.attributedText
+                = setAttributes(number: currentEnergyAmount,
+                                format: "%.f",
+                                unit: " kcal")
         }
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-                setup(setting: hasSaved)
+        setup(setting: hasSaved)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -75,19 +84,19 @@ final class InformationViewController: UIViewController {
 
     private func setup(setting hasSaved: Bool) {
         if hasSaved {
-        targetPercentEnergyProgressView.transform
-            = CGAffineTransform(scaleX: 1, y: 5)
+            targetPercentEnergyProgressView.transform
+                = CGAffineTransform(scaleX: 1, y: 5)
 
-        targetAchivementView.isHidden = false
-        targetStringLabel.text = "目標値まで"
+            targetAchivementView.isHidden = false
+            targetStringLabel.text = "目標値まで"
 
-        [targetAchivementView,
-         lipidRequirementView].forEach {
-            $0?.layer.cornerRadius = 15
-            $0?.layer.shadowOffset = CGSize(width: 0, height: 2)
-            $0?.layer.shadowColor = UIColor.black.cgColor
-            $0?.layer.shadowOpacity = 0.3
-         }
+            [targetAchivementView,
+             lipidRequirementView].forEach {
+                $0?.layer.cornerRadius = 15
+                $0?.layer.shadowOffset = CGSize(width: 0, height: 2)
+                $0?.layer.shadowColor = UIColor.black.cgColor
+                $0?.layer.shadowOpacity = 0.3
+             }
         } else {
             let targetString = "設定をすると表示が追加されます"
             targetStringLabel.text = targetString
