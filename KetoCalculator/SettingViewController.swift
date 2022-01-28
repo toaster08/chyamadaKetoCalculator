@@ -151,24 +151,13 @@ final class SettingViewController: UIViewController {
             $0.layer.borderColor = UIColor.clear.cgColor
             $0.layer.borderWidth = 5
             $0.layer.cornerRadius = $0.frame.width / 2
-
-//            let gradientLayer = CAGradientLayer()
-//            gradientLayer.frame = $0.bounds
-//            let color1 = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1).cgColor
-//            let color2 = #colorLiteral(red: 0.5174773335, green: 0.8167103529, blue: 1, alpha: 1).cgColor
-//            let color3 = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1).cgColor
-//            gradientLayer.colors = [color1, color2, color3]
-//            gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
-//            gradientLayer.endPoint = CGPoint.init(x: 1, y: 1)
-//            gradientLayer.cornerRadius = $0.frame.width / 2
-//            $0.layer.insertSublayer(gradientLayer, at: 0)
         }
 
         buttonBackGradationView.map {
             let gradientLayer = CAGradientLayer()
             gradientLayer.frame = $0.bounds
             let color1 = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0).cgColor
-            let color2 = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1).cgColor
+            let color2 = UIColor(named: "SettingClearColor")?.cgColor
             gradientLayer.colors = [color1, color2]
             gradientLayer.startPoint = CGPoint.init(x: 1, y: 0)
             gradientLayer.endPoint = CGPoint.init(x: 1, y: 1)

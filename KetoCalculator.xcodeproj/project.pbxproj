@@ -24,6 +24,7 @@
 		8A6BF495272D8644000C0E3C /* Nutrient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BF494272D8644000C0E3C /* Nutrient.swift */; };
 		8A7ADE59278CD8B300EA3719 /* KetoCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7ADE58278CD8B300EA3719 /* KetoCalculatorTests.swift */; };
 		8ACF68632758E13C004C7437 /* SettingUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACF68622758E13C004C7437 /* SettingUserDefaults.swift */; };
+		8AEA555C27A1A85D0046DD86 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AEA555B27A1A85C0046DD86 /* Media.xcassets */; };
 		B91C29765BE477BD0D9A32FE /* Pods_KetoCalculator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A04108F97927E1A7ED95CB /* Pods_KetoCalculator.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		8A7ADE58278CD8B300EA3719 /* KetoCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KetoCalculatorTests.swift; sourceTree = "<group>"; };
 		8A7ADE5A278CD8B300EA3719 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8ACF68622758E13C004C7437 /* SettingUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserDefaults.swift; sourceTree = "<group>"; };
+		8AEA555B27A1A85C0046DD86 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		B60CDE7F35C5676BEC7A9613 /* Pods-KetoCalculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KetoCalculator.release.xcconfig"; path = "Target Support Files/Pods-KetoCalculator/Pods-KetoCalculator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,9 +154,10 @@
 				186A00092743DD6E00BD01DD /* InformationViewController.swift */,
 				8A0E2C672749431D002517BB /* SettingViewController.swift */,
 				8A6BF483272D80DE000C0E3C /* Main.storyboard */,
-				8A6BF486272D80EB000C0E3C /* Assets.xcassets */,
 				8A6BF488272D80EB000C0E3C /* LaunchScreen.storyboard */,
 				8A6BF48B272D80EB000C0E3C /* Info.plist */,
+				8A6BF486272D80EB000C0E3C /* Assets.xcassets */,
+				8AEA555B27A1A85C0046DD86 /* Media.xcassets */,
 			);
 			path = KetoCalculator;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AEA555C27A1A85D0046DD86 /* Media.xcassets in Resources */,
 				8A57A6F527839EA500B6DAED /* PostFeedCollectionViewCell.xib in Resources */,
 				8A6BF48A272D80EB000C0E3C /* LaunchScreen.storyboard in Resources */,
 				8A6BF487272D80EB000C0E3C /* Assets.xcassets in Resources */,

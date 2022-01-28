@@ -148,6 +148,8 @@ final class CalculatorViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         loadDefaultTargetValue()
+
+        calculateButton.layer.cornerRadius = calculateButton.frame.width / 2
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -171,23 +173,12 @@ final class CalculatorViewController: UIViewController {
     private func setupGradient(frame: CGRect) {
         inputTextFieldsView.map {
             let gradientLayer = CAGradientLayer()
-
-//            let gradientFrameHeight: CGFloat
-//            if frame.height < 220 {
-//                gradientFrameHeight = frame.height
-//            } else {
-//                gradientFrameHeight = frame.height
-//            }
-//
-//            gradientLayer.frame
-//                = CGRect(x: frame.minX,
-//                         y: frame.minY,
-//                         width: frame.width,
-//                         height: gradientFrameHeight)
             gradientLayer.frame = $0.bounds
-            let color1 = #colorLiteral(red: 0.9908007979, green: 0.6731317639, blue: 0.6572402716, alpha: 1).cgColor
-            let color2 = #colorLiteral(red: 0.9592704177, green: 0.6589156985, blue: 0.5547221899, alpha: 1).cgColor
-            let color3 = #colorLiteral(red: 0.9723681808, green: 0.8347607255, blue: 0.546847403, alpha: 1).cgColor
+            guard let color1 = UIColor(named: "Gradient1")?.cgColor,
+                  let color2 = UIColor(named: "Gradient2")?.cgColor,
+                  let color3 = UIColor(named: "Gradient3")?.cgColor else {
+                return
+            }
             gradientLayer.colors = [color1, color2, color3]
             gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
             gradientLayer.endPoint = CGPoint.init(x: 1, y: 1)
