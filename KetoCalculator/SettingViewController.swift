@@ -158,7 +158,7 @@ final class SettingViewController: UIViewController {
             gradientLayer.frame = $0.bounds
             let color1 = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0).cgColor
             let color2 = UIColor(named: "SettingClearColor")?.cgColor
-            gradientLayer.colors = [color1, color2]
+            gradientLayer.colors = [color1, color2!]
             gradientLayer.startPoint = CGPoint.init(x: 1, y: 0)
             gradientLayer.endPoint = CGPoint.init(x: 1, y: 1)
             $0.layer.insertSublayer(gradientLayer, at: 0)

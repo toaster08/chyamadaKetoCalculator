@@ -251,14 +251,14 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bN8-0u-HaQ">
                                 <rect key="frame" x="146.33333333333334" y="620.33333333333337" width="97.333333333333343" height="97.666666666666629"/>
-                                <color key="backgroundColor" red="0.99871093030000002" green="0.67695814369999996" blue="0.66521590949999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="CalcButtonColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" priority="750" constant="100" id="cNU-zf-Ld3"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="751" constant="60" id="chs-hg-Erd"/>
                                     <constraint firstAttribute="height" priority="750" constant="100" id="ehj-9a-uTo"/>
                                     <constraint firstAttribute="width" secondItem="bN8-0u-HaQ" secondAttribute="height" multiplier="1:1" id="eze-xx-lW6"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="25"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <state key="normal" title="Calc">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -360,13 +360,13 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="脂質の場合" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.14999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="Pdi-md-kpM">
                                                         <rect key="frame" x="0.0" y="16.333333333333311" width="144.33333333333334" height="33.666666666666657"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                                                        <color key="textColor" name="Accent Color"/>
+                                                        <color key="textColor" name="LipidRequirementColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.34999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="H8h-if-Mdy">
                                                         <rect key="frame" x="164.33333333333334" y="0.0" width="116.00000000000003" height="54"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
-                                                        <color key="textColor" name="Accent Color"/>
+                                                        <color key="textColor" name="LipidRequirementColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -815,7 +815,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y72-Xe-dmV">
                                 <rect key="frame" x="146.33333333333334" y="633.66666666666663" width="97.333333333333343" height="97.333333333333371"/>
-                                <color key="backgroundColor" red="0.5297851562" green="0.82090044019999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="SettingButtonColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" priority="750" constant="100" id="7H9-gh-leY"/>
                                 </constraints>
@@ -886,11 +886,20 @@
         <namedColor name="Blue Color">
             <color red="0.52999997138977051" green="0.82099997997283936" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="CalcButtonColor">
+            <color red="1" green="0.67697751520000005" blue="0.66093218330000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="LipidRequirementColor">
+            <color red="0.59786969420000002" green="0.834140718" blue="0.28725755209999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="Main Color">
             <color red="1" green="0.67699998617172241" blue="0.66500002145767212" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Mode Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SettingButtonColor">
+            <color red="0.51747733350000003" green="0.81671035290000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="String Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
