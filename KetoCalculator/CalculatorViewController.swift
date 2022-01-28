@@ -288,35 +288,22 @@ final class CalculatorViewController: UIViewController {
         switch selectedIndexType {
         case .ketogenicRatio:
             guard let carbohydrate = Double(inputCarbohydrateTextField.text ?? "") else { return }
-            calculatedResult = PFC(protein: protein,
-                                   fat: fat,
-                                   carbohydrate: carbohydrate)
-                .ketogenicRatio
-            self.pfc = PFC(protein: protein,
-                           fat: fat,
-                           carbohydrate: carbohydrate)
+            self.pfc = PFC(protein: protein, fat: fat, carbohydrate: carbohydrate)
+            calculatedResult = pfc?.ketogenicRatio
         case .ketogenicIndex:
             guard let carbohydrate = Double(inputCarbohydrateTextField.text ?? "") else { return }
-            calculatedResult = PFC(protein: protein,
-                                   fat: fat,
-                                   carbohydrate: carbohydrate)
-                .ketogenicIndex
-            self.pfc = PFC(protein: protein,
-                           fat: fat,
-                           carbohydrate: carbohydrate)
-
+            self.pfc = PFC(protein: protein, fat: fat, carbohydrate: carbohydrate)
+            calculatedResult = pfc?.ketogenicIndex
         case .ketogenicValue:
             guard let sugar = Double(inputSugarTextField.text ?? "") else { return }
-            calculatedResult = PFS(protein: protein,
-                                   fat: fat,
-                                   sugar: sugar)
-                .ketogenicValue
-            self.pfs =  PFS(protein: protein,
-                            fat: fat,
-                            sugar: sugar)
+            self.pfs =  PFS(protein: protein, fat: fat, sugar: sugar)
+            calculatedResult = pfs?.ketogenicValue
         }
 
         guard let calculatedResult = calculatedResult else {
+            // nilで入力されている値が正しいかを判別
+            let message = "入力されている値を確認してください"
+            presentAlert(title: "計算", message: message, actionTitle: "OK")
             enableInfomationButton()
             return
         }
@@ -401,19 +388,7 @@ extension CalculatorViewController {
             .allSatisfy { Double($0) != nil }
     }
 }
-// 割る数が0の場合はアラート表示してキャンセル
-extension CalculatorViewController {
-    @objc private func presentAlert(message: String) {
-        let alertController = UIAlertController(title: "計算",
-                                                message: message,
-                                                preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK",
-                                        style: .default,
-                                        handler: nil)
-        alertController.addAction(alertAction)
-        present(alertController, animated: true, completion: nil)
-    }
-}
+
 // API通信
 extension CalculatorViewController {
     private func getArticle() {
