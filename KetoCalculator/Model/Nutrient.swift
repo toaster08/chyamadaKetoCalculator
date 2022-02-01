@@ -41,7 +41,7 @@ struct PFC { // Protein Fat Carbohydrate
 
     // 目標ケトン指数に対する必要脂質量の過不足
     func lipidRequirementInKetogenicIndex(for targetValue: Double) -> Double? {
-        if ((0.1 * targetValue - 0.9) - fat) == 0 { return nil }
+       if ((0.1 * targetValue - 0.9) - fat) == 0 { return nil }
        return (0.46 * protein - targetValue * (carbohydrate + 0.58 * protein)) / ( 0.1 * targetValue - 0.9) - fat
     }
 }

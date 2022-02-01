@@ -18,7 +18,7 @@ final class APIClient {
 
     var imageLink: [String] = .init()
     func getAPI(url: String,
-                completion: (((Result<[WordPressContents],
+                completion: (((Result<[WordPressContent],
                                      WordPressError>) -> Void)? )) {
         guard let url = URL(string: url) else {
             print("URL型を取得できない")
@@ -41,10 +41,10 @@ final class APIClient {
 
             self.imageLink = wordpressResponse.compactMap { $0.links }
 
-            var wordPressArticles: [WordPressContents] = .init()
+            var wordPressArticles: [WordPressContent] = .init()
             for (response, imageLink) in zip(wordpressResponse, self.imageLink) {
                 wordPressArticles
-                    .append(WordPressContents(content: response,
+                    .append(WordPressContent(content: response,
                                               captureImageLink: imageLink))
             }
 
@@ -59,7 +59,7 @@ class ImageDownLoader {
     private init() { }
 
     var imageData: [Data] = .init()
-    func downloadImage(contents: [WordPressContents],
+    func downloadImage(contents: [WordPressContent],
                        completion: ((Result<[Data], WordPressError>) -> Void)?) {
         for (count, content) in contents.enumerated() {
             guard let captureImageLink = content.captureImageLink,

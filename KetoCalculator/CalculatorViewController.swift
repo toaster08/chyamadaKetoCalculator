@@ -31,10 +31,12 @@ final class CalculatorViewController: UIViewController {
 
     // API通信用
     private var apiClient: APIClient?
-    private var contents: [WordPressContents] = []
+    private var contents: [WordPressContent] = []
     private var articles: [WordPressArticles] = []
+
     private var imageDownloader: ImageDownLoader?
     private var imageData: [Data] = []
+
     private var selectedIndexType: KetogenicIndexType {
         switch ketogenicIndexTypeSegmentedControl.selectedSegmentIndex {
         case 0: return .ketogenicRatio
@@ -142,7 +144,6 @@ final class CalculatorViewController: UIViewController {
             textFieldsStackView.setCustomSpacing(5, after: carbohydrateStackView)
             calculateButton.layer.cornerRadius = calculateButton.frame.width / 2
         }
-
         setupGradient(frame: inputTextFieldsView.bounds)
     }
 
@@ -278,7 +279,7 @@ final class CalculatorViewController: UIViewController {
     }
 
     @objc private func calculate() {
-        animateView(calculateButton)
+        animateButtonView(calculateButton)
 
         guard let protein = Double(inputProteinTextField.text ?? ""),
               let fat = Double(inputFatTextField.text ?? "") else {
@@ -430,7 +431,7 @@ extension CalculatorViewController {
     private func makeArticles() {
         for (contents, imageData) in zip(self.contents, self.imageData) {
             articles
-                .append(WordPressArticles(wordPressContents: contents,
+                .append(WordPressArticles(wordPressContent: contents,
                                           wordPressImage: imageData))
         }
     }
@@ -455,7 +456,7 @@ extension CalculatorViewController: UICollectionViewDataSource {
 extension CalculatorViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if articles.count > 0 {
-            guard let articleURLString = articles[indexPath.row].wordPressContents.content?.postURL else { return }
+            guard let articleURLString = articles[indexPath.row].wordPressContent.content?.postURL else { return }
             if let articleURL = URL(string: articleURLString) {
                 let safariVC = SFSafariViewController(url: articleURL)
                 present(safariVC, animated: true, completion: nil)

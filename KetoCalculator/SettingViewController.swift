@@ -201,7 +201,7 @@ final class SettingViewController: UIViewController {
     }
 
     @objc private func saveSetting() {
-        animateView(settingSaveButton)
+        animateButtonView(settingSaveButton)
 
         guard let ratioTargetValue = ratioTargetValue,
               let indexTargetValue = indexTargetValue,

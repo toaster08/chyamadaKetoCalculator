@@ -8,11 +8,11 @@
 import Foundation
 
 struct WordPressArticles {
-    let wordPressContents: WordPressContents
+    let wordPressContent: WordPressContent
     let wordPressImage: Data
 }
 
-struct WordPressContents: Decodable {
+struct WordPressContent: Decodable {
     let content: ContentResposeModel?
     let captureImageLink: String?
 }

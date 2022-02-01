@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    func animateView(_ viewToAnimate: UIView) {
+    func animateButtonView(_ viewToAnimate: UIView) {
         UIView.animate(withDuration: 0.2,
                        delay: 0,
                        options: .curveEaseIn,
@@ -31,9 +31,7 @@ extension UIViewController {
             })
         }
     }
-}
 
-extension UIViewController {
     func presentAlert(title: String, message: String, actionTitle: String) {
         let alertController = UIAlertController(title: title,
                                                 message: message,
