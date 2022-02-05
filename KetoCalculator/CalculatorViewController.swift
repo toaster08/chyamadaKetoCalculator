@@ -276,7 +276,7 @@ final class CalculatorViewController: UIViewController {
     }
 
     @objc private func calculate() {
-        calculateButton.animateButtonView()
+//        calculateButton.animateButtonView()
 
         guard let protein = Double(inputProteinTextField.text ?? ""),
               let fat = Double(inputFatTextField.text ?? "") else {
@@ -307,6 +307,9 @@ final class CalculatorViewController: UIViewController {
 
         calculatedResultLabel.text = String(round(calculatedResult * 10) / 10)
         enableInfomationButton()
+
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
     }
 }
 

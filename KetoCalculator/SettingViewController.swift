@@ -194,7 +194,7 @@ final class SettingViewController: UIViewController {
     }
 
     @objc private func saveSetting() {
-        settingSaveButton.animateButtonView()
+//        settingSaveButton.animateButtonView()
 
         guard let ratioTargetValue = ratioTargetValue,
               let indexTargetValue = indexTargetValue,
@@ -216,5 +216,8 @@ final class SettingViewController: UIViewController {
         settingUserDefaults
             .save(totalEnergyExpenditure: totalEnergyExpenditure)
         settingUserDefaults.hasSaved(flug: true)
+
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
     }
 }
