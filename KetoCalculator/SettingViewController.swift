@@ -10,9 +10,6 @@ import SafariServices
 
 final class SettingViewController: UIViewController {
     // UserDefaults
-    static let ketogenicRatioTargetValueKey = "ketogenicRatioTargetValueKey"
-    static let ketogenicIndexTargetValueKey = "ketogenicIndexTargetValueKey"
-    static let ketogenicValueTargetValueKey = "ketogenicValueTargetValueKey"
     static let totalEnergyExpenditureKey = "totalEnergyExpenditureKey"
     // UserDefalutsからの値の格納先
     private let settingUserDefaults = SettingUserDefaults()
