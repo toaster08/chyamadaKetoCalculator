@@ -45,6 +45,7 @@ final class SettingViewController: UIViewController {
     // 改修箇所
     @IBOutlet private weak var privacypolicyButton: UIButton!
     @IBOutlet private weak var privacypolicyView: UIView!
+
     // 各種設定保存のButton関連
     @IBOutlet private weak var settingSaveButton: UIButton!
     @IBOutlet weak private var buttonBackGradationView: UIView!
@@ -193,7 +194,7 @@ final class SettingViewController: UIViewController {
     }
 
     @objc private func saveSetting() {
-        animateButtonView(settingSaveButton)
+        settingSaveButton.animateButtonView()
 
         guard let ratioTargetValue = ratioTargetValue,
               let indexTargetValue = indexTargetValue,

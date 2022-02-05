@@ -276,7 +276,7 @@ final class CalculatorViewController: UIViewController {
     }
 
     @objc private func calculate() {
-        animateButtonView(calculateButton)
+        calculateButton.animateButtonView()
 
         guard let protein = Double(inputProteinTextField.text ?? ""),
               let fat = Double(inputFatTextField.text ?? "") else {
