@@ -171,23 +171,6 @@ final class CalculatorViewController: UIViewController {
             = selectedIndexType
     }
 
-    private func setupGradient(frame: CGRect) {
-        inputTextFieldsView.map {
-            let gradientLayer = CAGradientLayer()
-            gradientLayer.frame = $0.bounds
-            guard let color1 = UIColor(named: "Gradient1")?.cgColor,
-                  let color2 = UIColor(named: "Gradient2")?.cgColor,
-                  let color3 = UIColor(named: "Gradient3")?.cgColor else {
-                return
-            }
-            gradientLayer.colors = [color1, color2, color3]
-            gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
-            gradientLayer.endPoint = CGPoint.init(x: 1, y: 1)
-            gradientLayer.cornerRadius = 10
-            $0.layer.insertSublayer(gradientLayer, at: 0)
-        }
-    }
-
     private func setup() {
         inputTextFields.forEach {
             $0.layer.cornerRadius = 10
@@ -222,6 +205,23 @@ final class CalculatorViewController: UIViewController {
         }
     }
 
+    private func setupGradient(frame: CGRect) {
+        inputTextFieldsView.map {
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.frame = $0.bounds
+            guard let color1 = UIColor(named: "Gradient1")?.cgColor,
+                  let color2 = UIColor(named: "Gradient2")?.cgColor,
+                  let color3 = UIColor(named: "Gradient3")?.cgColor else {
+                return
+            }
+            gradientLayer.colors = [color1, color2, color3]
+            gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint.init(x: 1, y: 1)
+            gradientLayer.cornerRadius = 10
+            $0.layer.insertSublayer(gradientLayer, at: 0)
+        }
+    }
+
     private func loadSavedFlug() {
         hasSaved = settingUserDefaults.loadSavedFlug()
     }
@@ -244,14 +244,11 @@ final class CalculatorViewController: UIViewController {
 
         switch selectedIndexType {
         case .ketogenicRatio:
-            defaultTarget = settingUserDefaults
-                .loadDefaultTargetValue(targetValueKey: SettingViewController.ketogenicRatioTargetValueKey)
+            defaultTarget = settingUserDefaults.loadRaioDefaultTarget()
         case .ketogenicIndex:
-            defaultTarget = settingUserDefaults
-                .loadDefaultTargetValue(targetValueKey: SettingViewController.ketogenicIndexTargetValueKey)
+            defaultTarget = settingUserDefaults.loadIndexDefaultTarget()
         case .ketogenicValue:
-            defaultTarget = settingUserDefaults
-                .loadDefaultTargetValue(targetValueKey: SettingViewController.ketogenicValueTargetValueKey)
+            defaultTarget = settingUserDefaults.loadValueDefaultTarget()
         }
         guard let defaultTarget = defaultTarget else { return }
         let targetValue = String(format: "%.1f", defaultTarget)
@@ -302,7 +299,6 @@ final class CalculatorViewController: UIViewController {
         }
 
         guard let calculatedResult = calculatedResult else {
-            // nilで入力されている値が正しいかを判別
             let message = "入力されている値を確認してください"
             presentAlert(title: "計算", message: message, actionTitle: "OK")
             enableInfomationButton()
