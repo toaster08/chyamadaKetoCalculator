@@ -105,9 +105,9 @@ final class SettingViewController: UIViewController {
 
     private func loadUserDefaults() {
         selectedEquation = settingUserDefaults.loadDefaultIndexType()
-        ratioTargetValue = settingUserDefaults.loadDefaultTargetValue(targetValueKey: Self.ketogenicRatioTargetValueKey)
-        indexTargetValue = settingUserDefaults.loadDefaultTargetValue(targetValueKey: Self.ketogenicIndexTargetValueKey)
-        numberTargetValue = settingUserDefaults.loadDefaultTargetValue(targetValueKey: Self.ketogenicValueTargetValueKey)
+        ratioTargetValue = settingUserDefaults.loadRaioDefaultTarget()
+        indexTargetValue = settingUserDefaults.loadIndexDefaultTarget()
+        numberTargetValue = settingUserDefaults.loadValueDefaultTarget()
         totalEnergyExpenditure = settingUserDefaults.loadDefaultTEE()
 
         if let ratioTargetValue = ratioTargetValue {
@@ -196,7 +196,6 @@ final class SettingViewController: UIViewController {
 
     @objc private func settingREEEditingChanged() {
         let TEE = settingTEETextField.flatMap { Double($0.text ?? "") }
-        // バリデーション構築するまではこれで対応
         totalEnergyExpenditure = TEE
     }
 
@@ -212,18 +211,16 @@ final class SettingViewController: UIViewController {
         }
 
         settingUserDefaults
-            .save(targetValue: ratioTargetValue,
-                  targetValueKey: Self.ketogenicRatioTargetValueKey)
+            .save(targetKetogenicRatio: ratioTargetValue)
         settingUserDefaults
-            .save(targetValue: indexTargetValue,
-                  targetValueKey: Self.ketogenicIndexTargetValueKey)
+            .save(targetKetogenicIndex: indexTargetValue)
         settingUserDefaults
-            .save(targetValue: numberTargetValue,
-                  targetValueKey: Self.ketogenicValueTargetValueKey)
+            .save(targetKetogenicValue: numberTargetValue)
+
         settingUserDefaults
             .save(selectedEquation: selectedEquation)
         settingUserDefaults
-            .save(TEE: totalEnergyExpenditure)
+            .save(totalEnergyExpenditure: totalEnergyExpenditure)
         settingUserDefaults.hasSaved(flug: true)
     }
 }

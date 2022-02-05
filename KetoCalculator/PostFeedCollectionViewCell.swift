@@ -33,13 +33,13 @@ final class PostFeedCollectionViewCell: UICollectionViewCell {
     func configure(article: WordPressArticles) {
             postTitleLabel.text
                 = article
-                .wordPressContents
+                .wordPressContent
                 .content?
                 .title
 
             postTextView.text
                 = article
-                .wordPressContents
+                .wordPressContent
                 .content?
                 .excerpt
                 .replacingOccurrences(of: "<.+?>|&.+?;",

@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol TargetAchivement {
+protocol TargetAchivementOutput {
     func display(lipidRequirement: Double, currentEnergy: Double, TEE: Double)
     func judge(Of lipidRequirement: Double) -> String
     func setAttributes(number: Double, format: String, unit: String) -> NSMutableAttributedString
@@ -21,9 +21,7 @@ final class InformationViewController: UIViewController {
 
     let settingUserDefaults = SettingUserDefaults()
     private var hasSaved = false
-
-    // ケトン指標の目標値
-    private var targetValue: Double {
+    private var loadedTargetValue: Double {
         loadDefaultTargetValue()
     }
 
@@ -43,7 +41,6 @@ final class InformationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadSettingHasSaved()
-        //        setup(setting: hasSaved)
 
         if hasSaved {
             guard let currentKetogenicIndexType
@@ -128,14 +125,11 @@ extension InformationViewController {
         let targetValue: Double
         switch currentKetogenicIndexType {
         case .ketogenicRatio:
-            targetValue = settingUserDefaults
-                .loadDefaultTargetValue(targetValueKey: SettingViewController.ketogenicRatioTargetValueKey)
+            targetValue = settingUserDefaults.loadRaioDefaultTarget()
         case .ketogenicIndex:
-            targetValue = settingUserDefaults
-                .loadDefaultTargetValue(targetValueKey: SettingViewController.ketogenicIndexTargetValueKey)
+            targetValue = settingUserDefaults.loadIndexDefaultTarget()
         case .ketogenicValue:
-            targetValue = settingUserDefaults
-                .loadDefaultTargetValue(targetValueKey: SettingViewController.ketogenicValueTargetValueKey)
+            targetValue = settingUserDefaults.loadValueDefaultTarget()
         case .none: fatalError()
         }
         return targetValue
@@ -154,13 +148,13 @@ extension InformationViewController {
         switch ketogenicIndexType {
         case .ketogenicRatio:
             lipidRequirement
-                = pfc?.lipidRequirementInKetogenicRatio(for: targetValue)
+                = pfc?.lipidRequirementInKetogenicRatio(for: loadedTargetValue)
         case .ketogenicIndex:
             lipidRequirement
-                = pfc?.lipidRequirementInKetogenicIndex(for: targetValue)
+                = pfc?.lipidRequirementInKetogenicIndex(for: loadedTargetValue)
         case .ketogenicValue:
             lipidRequirement
-                = pfs?.lipidRequirementInKetogenicValue(for: targetValue)
+                = pfs?.lipidRequirementInKetogenicValue(for: loadedTargetValue)
         }
         return lipidRequirement
     }
@@ -179,7 +173,7 @@ extension InformationViewController {
     }
 }
 
-extension InformationViewController: TargetAchivement {
+extension InformationViewController: TargetAchivementOutput {
     func judge(Of lipidRequirement: Double) -> String {
         if  lipidRequirement <= -99.95 {
             return "-100g以上"
