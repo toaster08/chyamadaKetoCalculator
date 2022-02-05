@@ -8,7 +8,6 @@
 import Foundation
 
 final class SettingUserDefaults {
-
     private let initialKetoEquationKey = "initialKetoEquationKey"
     private let ketogenicIndexTypeTargetValueKey = "ketogenicIndexTypeTargetValueKey"
     private let totalEnergyExpenditureKey = "totalEnergyExpenditureKey"

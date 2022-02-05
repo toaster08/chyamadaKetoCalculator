@@ -9,8 +9,6 @@ import UIKit
 import SafariServices
 
 final class SettingViewController: UIViewController {
-    // UserDefaults
-    static let totalEnergyExpenditureKey = "totalEnergyExpenditureKey"
     // UserDefalutsからの値の格納先
     private let settingUserDefaults = SettingUserDefaults()
     private var ratioTargetValue: Double?
@@ -44,11 +42,9 @@ final class SettingViewController: UIViewController {
     @IBOutlet private weak var settingTEETextField: UITextField!
     // WordPressのAPI通信関連
     @IBOutlet private weak var postFeedView: UIView!
-
     // 改修箇所
     @IBOutlet private weak var privacypolicyButton: UIButton!
     @IBOutlet private weak var privacypolicyView: UIView!
-
     // 各種設定保存のButton関連
     @IBOutlet private weak var settingSaveButton: UIButton!
     @IBOutlet weak private var buttonBackGradationView: UIView!
