@@ -15,6 +15,7 @@ final class CalculatorViewController: UIViewController {
     private var calculatedResult: Double?
     private var pfc: PFC?
     private var pfs: PFS?
+    let gradientLayer = CAGradientLayer()
 
     private var inputTextFields: [UITextField] {
         [inputProteinTextField,
@@ -144,19 +145,27 @@ final class CalculatorViewController: UIViewController {
             textFieldsStackView.setCustomSpacing(7, after: fatStackView)
             textFieldsStackView.setCustomSpacing(7, after: carbohydrateStackView)
         }
+
         setupGradient(frame: inputTextFieldsView.bounds)
     }
 
-//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-//        super.traitCollectionDidChange(previousTraitCollection)
-//        if #available(iOS 13, *) {
-//            if previousTraitCollection?.userInterfaceStyle == .dark {
-//                print("dark mode")
-//            } else {
-//                print("default mode")
-//            }
-//        }
-//    }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *) {
+                guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else {
+                    return
+                }
+
+                if traitCollection.userInterfaceStyle == .dark {
+                    print("traitCollection:dark mode")
+                    setupGradient(frame: inputTextFieldsView.bounds)
+                } else if traitCollection.userInterfaceStyle == .light {
+                    print("traitCollection:light mode")
+                    setupGradient(frame: inputTextFieldsView.bounds)
+                }
+        }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         loadDefaultTargetValue()
@@ -220,7 +229,6 @@ final class CalculatorViewController: UIViewController {
 
     private func setupGradient(frame: CGRect) {
         inputTextFieldsView.map {
-            let gradientLayer = CAGradientLayer()
             gradientLayer.frame = $0.bounds
             guard let color1 = UIColor(named: "Gradient1")?.cgColor,
                   let color2 = UIColor(named: "Gradient2")?.cgColor,

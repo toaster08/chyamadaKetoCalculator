@@ -18,6 +18,7 @@ final class SettingViewController: UIViewController {
     private var totalEnergyExpenditure: Double?
     // Viewの配置設定関係
     var settingButtonPosition: CGRect?
+    private let gradientLayer = CAGradientLayer()
 
     private var uiView: [UIView] {
         [segmentedControlView,
@@ -97,6 +98,24 @@ final class SettingViewController: UIViewController {
         loadUserDefaults()
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *) {
+                guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else {
+                    return
+                }
+
+                if traitCollection.userInterfaceStyle == .dark {
+                    print("traitCollection:dark mode")
+                    setupGradientLayer()
+                } else if traitCollection.userInterfaceStyle == .light {
+                    print("traitCollection:light mode")
+                    setupGradientLayer()
+                }
+        }
+    }
+
     private func loadUserDefaults() {
         selectedEquation = settingUserDefaults.loadDefaultIndexType()
         ratioTargetValue = settingUserDefaults.loadRaioDefaultTarget()
@@ -147,8 +166,11 @@ final class SettingViewController: UIViewController {
             $0.layer.cornerRadius = $0.frame.width / 2
         }
 
+        setupGradientLayer()
+    }
+
+    private func setupGradientLayer() {
         buttonBackGradationView.map {
-            let gradientLayer = CAGradientLayer()
             gradientLayer.frame = $0.bounds
             let color1 = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0).cgColor
             let color2 = UIColor(named: "SettingClearColor")?.cgColor
