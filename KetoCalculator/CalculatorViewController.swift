@@ -135,22 +135,31 @@ final class CalculatorViewController: UIViewController {
                 as? UICollectionViewFlowLayout else {
             return
         }
+
         postCollectionFlowLayout.itemSize
             = articleFeedCollectionView.frame.size
 
         if inputTextFieldsView.frame.height < 220 {
-            textFieldsStackView.setCustomSpacing(5, after: proteinStackView)
-            textFieldsStackView.setCustomSpacing(5, after: fatStackView)
-            textFieldsStackView.setCustomSpacing(5, after: carbohydrateStackView)
-            calculateButton.layer.cornerRadius = calculateButton.frame.width / 2
+            textFieldsStackView.setCustomSpacing(7, after: proteinStackView)
+            textFieldsStackView.setCustomSpacing(7, after: fatStackView)
+            textFieldsStackView.setCustomSpacing(7, after: carbohydrateStackView)
         }
         setupGradient(frame: inputTextFieldsView.bounds)
     }
 
+//    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+//        super.traitCollectionDidChange(previousTraitCollection)
+//        if #available(iOS 13, *) {
+//            if previousTraitCollection?.userInterfaceStyle == .dark {
+//                print("dark mode")
+//            } else {
+//                print("default mode")
+//            }
+//        }
+//    }
+
     override func viewWillAppear(_ animated: Bool) {
         loadDefaultTargetValue()
-
-        calculateButton.layer.cornerRadius = calculateButton.frame.width / 2
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -196,12 +205,16 @@ final class CalculatorViewController: UIViewController {
          }
 
         calculateButton.map {
+            $0.frame = $0.bounds
+            $0.layoutIfNeeded()
+
             $0.isEnabled = false
             $0.layer.opacity = 0.5
             $0.layer.shadowOffset = CGSize(width: 0, height: 2)
             $0.layer.shadowColor = UIColor.black.cgColor
             $0.layer.shadowOpacity = 0.3
             $0.titleLabel?.minimumScaleFactor = 0.1
+            $0.layer.cornerRadius = $0.frame.width / 2
         }
     }
 
@@ -276,7 +289,7 @@ final class CalculatorViewController: UIViewController {
     }
 
     @objc private func calculate() {
-//        calculateButton.animateButtonView()
+        //        calculateButton.animateButtonView()
 
         guard let protein = Double(inputProteinTextField.text ?? ""),
               let fat = Double(inputFatTextField.text ?? "") else {
