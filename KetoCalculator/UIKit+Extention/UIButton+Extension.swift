@@ -1,25 +1,12 @@
 //
-//  File.swift
+//  UIButton+Extension.swift
 //  KetoCalculator
 //
-//  Created by toaster on 2021/11/23.
+//  Created by toaster on 2022/02/06.
 //
 
 import Foundation
 import UIKit
-
-extension UIViewController {
-    func presentAlert(title: String, message: String, actionTitle: String) {
-        let alertController = UIAlertController(title: title,
-                                                message: message,
-                                                preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: actionTitle,
-                                        style: .default,
-                                        handler: nil)
-        alertController.addAction(alertAction)
-        present(alertController, animated: true, completion: nil)
-    }
-}
 
 extension UIButton {
     func animateButtonView() {
