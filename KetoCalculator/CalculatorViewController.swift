@@ -15,6 +15,7 @@ final class CalculatorViewController: UIViewController {
     private var calculatedResult: Double?
     private var pfc: PFC?
     private var pfs: PFS?
+    let gradientLayer = CAGradientLayer()
 
     private var inputTextFields: [UITextField] {
         [inputProteinTextField,
@@ -135,22 +136,37 @@ final class CalculatorViewController: UIViewController {
                 as? UICollectionViewFlowLayout else {
             return
         }
+
         postCollectionFlowLayout.itemSize
             = articleFeedCollectionView.frame.size
 
         if inputTextFieldsView.frame.height < 220 {
-            textFieldsStackView.setCustomSpacing(5, after: proteinStackView)
-            textFieldsStackView.setCustomSpacing(5, after: fatStackView)
-            textFieldsStackView.setCustomSpacing(5, after: carbohydrateStackView)
-            calculateButton.layer.cornerRadius = calculateButton.frame.width / 2
+            textFieldsStackView.setCustomSpacing(7, after: proteinStackView)
+            textFieldsStackView.setCustomSpacing(7, after: fatStackView)
+            textFieldsStackView.setCustomSpacing(7, after: carbohydrateStackView)
         }
+
         setupGradient(frame: inputTextFieldsView.bounds)
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *) {
+            guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else {
+                return
+            }
+
+            if traitCollection.userInterfaceStyle == .dark {
+                setupGradient(frame: inputTextFieldsView.bounds)
+            } else if traitCollection.userInterfaceStyle == .light {
+                setupGradient(frame: inputTextFieldsView.bounds)
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         loadDefaultTargetValue()
-
-        calculateButton.layer.cornerRadius = calculateButton.frame.width / 2
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -169,23 +185,6 @@ final class CalculatorViewController: UIViewController {
         }
         informationVC.currentKetogenicIndexType
             = selectedIndexType
-    }
-
-    private func setupGradient(frame: CGRect) {
-        inputTextFieldsView.map {
-            let gradientLayer = CAGradientLayer()
-            gradientLayer.frame = $0.bounds
-            guard let color1 = UIColor(named: "Gradient1")?.cgColor,
-                  let color2 = UIColor(named: "Gradient2")?.cgColor,
-                  let color3 = UIColor(named: "Gradient3")?.cgColor else {
-                return
-            }
-            gradientLayer.colors = [color1, color2, color3]
-            gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
-            gradientLayer.endPoint = CGPoint.init(x: 1, y: 1)
-            gradientLayer.cornerRadius = 10
-            $0.layer.insertSublayer(gradientLayer, at: 0)
-        }
     }
 
     private func setup() {
@@ -213,12 +212,32 @@ final class CalculatorViewController: UIViewController {
          }
 
         calculateButton.map {
+            $0.frame = $0.bounds
+            $0.layoutIfNeeded()
+
             $0.isEnabled = false
             $0.layer.opacity = 0.5
             $0.layer.shadowOffset = CGSize(width: 0, height: 2)
             $0.layer.shadowColor = UIColor.black.cgColor
             $0.layer.shadowOpacity = 0.3
             $0.titleLabel?.minimumScaleFactor = 0.1
+            $0.layer.cornerRadius = $0.frame.width / 2
+        }
+    }
+
+    private func setupGradient(frame: CGRect) {
+        inputTextFieldsView.map {
+            gradientLayer.frame = $0.bounds
+            guard let color1 = UIColor(named: "Gradient1")?.cgColor,
+                  let color2 = UIColor(named: "Gradient2")?.cgColor,
+                  let color3 = UIColor(named: "Gradient3")?.cgColor else {
+                return
+            }
+            gradientLayer.colors = [color1, color2, color3]
+            gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
+            gradientLayer.endPoint = CGPoint.init(x: 1, y: 1)
+            gradientLayer.cornerRadius = 10
+            $0.layer.insertSublayer(gradientLayer, at: 0)
         }
     }
 
@@ -244,14 +263,11 @@ final class CalculatorViewController: UIViewController {
 
         switch selectedIndexType {
         case .ketogenicRatio:
-            defaultTarget = settingUserDefaults
-                .loadDefaultTargetValue(targetValueKey: SettingViewController.ketogenicRatioTargetValueKey)
+            defaultTarget = settingUserDefaults.loadRaioDefaultTarget()
         case .ketogenicIndex:
-            defaultTarget = settingUserDefaults
-                .loadDefaultTargetValue(targetValueKey: SettingViewController.ketogenicIndexTargetValueKey)
+            defaultTarget = settingUserDefaults.loadIndexDefaultTarget()
         case .ketogenicValue:
-            defaultTarget = settingUserDefaults
-                .loadDefaultTargetValue(targetValueKey: SettingViewController.ketogenicValueTargetValueKey)
+            defaultTarget = settingUserDefaults.loadValueDefaultTarget()
         }
         guard let defaultTarget = defaultTarget else { return }
         let targetValue = String(format: "%.1f", defaultTarget)
@@ -279,8 +295,6 @@ final class CalculatorViewController: UIViewController {
     }
 
     @objc private func calculate() {
-        animateButtonView(calculateButton)
-
         guard let protein = Double(inputProteinTextField.text ?? ""),
               let fat = Double(inputFatTextField.text ?? "") else {
             return
@@ -302,7 +316,6 @@ final class CalculatorViewController: UIViewController {
         }
 
         guard let calculatedResult = calculatedResult else {
-            // nilで入力されている値が正しいかを判別
             let message = "入力されている値を確認してください"
             presentAlert(title: "計算", message: message, actionTitle: "OK")
             enableInfomationButton()
@@ -311,6 +324,9 @@ final class CalculatorViewController: UIViewController {
 
         calculatedResultLabel.text = String(round(calculatedResult * 10) / 10)
         enableInfomationButton()
+
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
     }
 }
 

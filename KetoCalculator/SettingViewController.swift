@@ -9,11 +9,6 @@ import UIKit
 import SafariServices
 
 final class SettingViewController: UIViewController {
-    // UserDefaults
-    static let ketogenicRatioTargetValueKey = "ketogenicRatioTargetValueKey"
-    static let ketogenicIndexTargetValueKey = "ketogenicIndexTargetValueKey"
-    static let ketogenicValueTargetValueKey = "ketogenicValueTargetValueKey"
-    static let totalEnergyExpenditureKey = "totalEnergyExpenditureKey"
     // UserDefalutsからの値の格納先
     private let settingUserDefaults = SettingUserDefaults()
     private var ratioTargetValue: Double?
@@ -23,6 +18,7 @@ final class SettingViewController: UIViewController {
     private var totalEnergyExpenditure: Double?
     // Viewの配置設定関係
     var settingButtonPosition: CGRect?
+    private let gradientLayer = CAGradientLayer()
 
     private var uiView: [UIView] {
         [segmentedControlView,
@@ -47,7 +43,6 @@ final class SettingViewController: UIViewController {
     @IBOutlet private weak var settingTEETextField: UITextField!
     // WordPressのAPI通信関連
     @IBOutlet private weak var postFeedView: UIView!
-
     // 改修箇所
     @IBOutlet private weak var privacypolicyButton: UIButton!
     @IBOutlet private weak var privacypolicyView: UIView!
@@ -103,11 +98,29 @@ final class SettingViewController: UIViewController {
         loadUserDefaults()
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if #available(iOS 13.0, *) {
+                guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else {
+                    return
+                }
+
+                if traitCollection.userInterfaceStyle == .dark {
+                    print("traitCollection:dark mode")
+                    setupGradientLayer()
+                } else if traitCollection.userInterfaceStyle == .light {
+                    print("traitCollection:light mode")
+                    setupGradientLayer()
+                }
+        }
+    }
+
     private func loadUserDefaults() {
         selectedEquation = settingUserDefaults.loadDefaultIndexType()
-        ratioTargetValue = settingUserDefaults.loadDefaultTargetValue(targetValueKey: Self.ketogenicRatioTargetValueKey)
-        indexTargetValue = settingUserDefaults.loadDefaultTargetValue(targetValueKey: Self.ketogenicIndexTargetValueKey)
-        numberTargetValue = settingUserDefaults.loadDefaultTargetValue(targetValueKey: Self.ketogenicValueTargetValueKey)
+        ratioTargetValue = settingUserDefaults.loadRaioDefaultTarget()
+        indexTargetValue = settingUserDefaults.loadIndexDefaultTarget()
+        numberTargetValue = settingUserDefaults.loadValueDefaultTarget()
         totalEnergyExpenditure = settingUserDefaults.loadDefaultTEE()
 
         if let ratioTargetValue = ratioTargetValue {
@@ -153,8 +166,11 @@ final class SettingViewController: UIViewController {
             $0.layer.cornerRadius = $0.frame.width / 2
         }
 
+        setupGradientLayer()
+    }
+
+    private func setupGradientLayer() {
         buttonBackGradationView.map {
-            let gradientLayer = CAGradientLayer()
             gradientLayer.frame = $0.bounds
             let color1 = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 0).cgColor
             let color2 = UIColor(named: "SettingClearColor")?.cgColor
@@ -196,12 +212,11 @@ final class SettingViewController: UIViewController {
 
     @objc private func settingREEEditingChanged() {
         let TEE = settingTEETextField.flatMap { Double($0.text ?? "") }
-        // バリデーション構築するまではこれで対応
         totalEnergyExpenditure = TEE
     }
 
     @objc private func saveSetting() {
-        animateButtonView(settingSaveButton)
+//        settingSaveButton.animateButtonView()
 
         guard let ratioTargetValue = ratioTargetValue,
               let indexTargetValue = indexTargetValue,
@@ -212,18 +227,19 @@ final class SettingViewController: UIViewController {
         }
 
         settingUserDefaults
-            .save(targetValue: ratioTargetValue,
-                  targetValueKey: Self.ketogenicRatioTargetValueKey)
+            .save(targetKetogenicRatio: ratioTargetValue)
         settingUserDefaults
-            .save(targetValue: indexTargetValue,
-                  targetValueKey: Self.ketogenicIndexTargetValueKey)
+            .save(targetKetogenicIndex: indexTargetValue)
         settingUserDefaults
-            .save(targetValue: numberTargetValue,
-                  targetValueKey: Self.ketogenicValueTargetValueKey)
+            .save(targetKetogenicValue: numberTargetValue)
+
         settingUserDefaults
             .save(selectedEquation: selectedEquation)
         settingUserDefaults
-            .save(TEE: totalEnergyExpenditure)
+            .save(totalEnergyExpenditure: totalEnergyExpenditure)
         settingUserDefaults.hasSaved(flug: true)
+
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
     }
 }

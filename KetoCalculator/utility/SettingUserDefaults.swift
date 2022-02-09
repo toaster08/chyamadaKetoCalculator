@@ -11,6 +11,11 @@ final class SettingUserDefaults {
     private let initialKetoEquationKey = "initialKetoEquationKey"
     private let ketogenicIndexTypeTargetValueKey = "ketogenicIndexTypeTargetValueKey"
     private let totalEnergyExpenditureKey = "totalEnergyExpenditureKey"
+
+    private let ketogenicRatioTargetValueKey = "ketogenicRatioTargetValueKey"
+    private let ketogenicIndexTargetValueKey = "ketogenicIndexTargetValueKey"
+    private let ketogenicValueTargetValueKey = "ketogenicValueTargetValueKey"
+
     private let hasSavedFlugKey = "hasSavedFlugKey"
 
     let userDefaults = UserDefaults.standard
@@ -19,11 +24,19 @@ final class SettingUserDefaults {
         userDefaults.set(selectedEquation, forKey: initialKetoEquationKey)
     }
 
-    func save(targetValue: Double, targetValueKey: String) {
-        userDefaults.set(targetValue, forKey: targetValueKey)
+    func save(targetKetogenicRatio targetValue: Double) {
+        userDefaults.set(targetValue, forKey: ketogenicRatioTargetValueKey)
     }
 
-    func save(TEE totalEnergyExpenditure: Double) {
+    func save(targetKetogenicIndex targetValue: Double) {
+        userDefaults.set(targetValue, forKey: ketogenicIndexTargetValueKey)
+    }
+
+    func save(targetKetogenicValue targetValue: Double) {
+        userDefaults.set(targetValue, forKey: ketogenicValueTargetValueKey)
+    }
+
+    func save(totalEnergyExpenditure: Double) {
         userDefaults.setValue(totalEnergyExpenditure, forKey: totalEnergyExpenditureKey)
     }
 
@@ -36,8 +49,18 @@ final class SettingUserDefaults {
         return selectedEquation
     }
 
-    func loadDefaultTargetValue(targetValueKey: String) -> Double {
-        let targetValue = userDefaults.double(forKey: targetValueKey)
+    func loadRaioDefaultTarget() -> Double {
+        let targetValue = userDefaults.double(forKey: ketogenicRatioTargetValueKey)
+        return targetValue
+    }
+
+    func loadIndexDefaultTarget() -> Double {
+        let targetValue = userDefaults.double(forKey: ketogenicRatioTargetValueKey)
+        return targetValue
+    }
+
+    func loadValueDefaultTarget() -> Double {
+        let targetValue = userDefaults.double(forKey: ketogenicRatioTargetValueKey)
         return targetValue
     }
 

@@ -17,37 +17,44 @@ final class PostFeedCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         APIIndicator.startAnimating()
         APIIndicator.hidesWhenStopped = true
-        setup()
     }
 
     // View
     private func setup() {
-        postImageView.layer.cornerRadius = postImageView.frame.height * 0.2
-        postImageView.layer.borderColor = UIColor.white.cgColor
-        postImageView.layer.borderWidth = 0.5
-        postImageView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        postImageView.layer.shadowColor = UIColor.black.cgColor
-        postImageView.layer.shadowOpacity = 0.3
+        postImageView.map {
+            $0.frame = bounds
+            $0.layoutIfNeeded()
+
+            $0.layer.cornerRadius = $0.frame.height / 2
+            $0.layer.borderColor = UIColor.white.cgColor
+            $0.layer.borderWidth = 0.5
+            $0.layer.shadowOffset = CGSize(width: 0, height: 2)
+            $0.layer.shadowColor = UIColor.black.cgColor
+            $0.layer.shadowOpacity = 0.3
+        }
     }
 
     func configure(article: WordPressArticles) {
-            postTitleLabel.text
-                = article
-                .wordPressContents
-                .content?
-                .title
+        setup()
 
-            postTextView.text
-                = article
-                .wordPressContents
-                .content?
-                .excerpt
-                .replacingOccurrences(of: "<.+?>|&.+?;",
-                                      with: "",
-                                      options: .regularExpression,
-                                      range: nil)
+        postTitleLabel.text
+            = article
+            .wordPressContent
+            .content?
+            .title
 
-            postImageView.image = UIImage(data: article.wordPressImage)
-            APIIndicator.stopAnimating()
+        postTextView.text
+            = article
+            .wordPressContent
+            .content?
+            .excerpt
+            .replacingOccurrences(of: "<.+?>|&.+?;",
+                                  with: "",
+                                  options: .regularExpression,
+                                  range: nil)
+
+        postImageView.image = UIImage(data: article.wordPressImage)
+
+        APIIndicator.stopAnimating()
     }
 }

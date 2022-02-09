@@ -16,6 +16,8 @@
 		8A556C832780B081009620DA /* WordPressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A556C822780B081009620DA /* WordPressModel.swift */; };
 		8A57A6F427839EA500B6DAED /* PostFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A57A6F227839EA500B6DAED /* PostFeedCollectionViewCell.swift */; };
 		8A57A6F527839EA500B6DAED /* PostFeedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A57A6F327839EA500B6DAED /* PostFeedCollectionViewCell.xib */; };
+		8A61FA5027AFA640008B774A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A61FA4F27AFA63F008B774A /* UIColor+Extension.swift */; };
+		8A61FA5427AFA64C008B774A /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A61FA5327AFA64C008B774A /* UIButton+Extension.swift */; };
 		8A6BF47E272D80DE000C0E3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BF47D272D80DE000C0E3C /* AppDelegate.swift */; };
 		8A6BF480272D80DE000C0E3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6BF47F272D80DE000C0E3C /* SceneDelegate.swift */; };
 		8A6BF485272D80DE000C0E3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A6BF483272D80DE000C0E3C /* Main.storyboard */; };
@@ -49,6 +51,8 @@
 		8A556C822780B081009620DA /* WordPressModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordPressModel.swift; sourceTree = "<group>"; };
 		8A57A6F227839EA500B6DAED /* PostFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFeedCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A57A6F327839EA500B6DAED /* PostFeedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostFeedCollectionViewCell.xib; sourceTree = "<group>"; };
+		8A61FA4F27AFA63F008B774A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		8A61FA5327AFA64C008B774A /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		8A6BF47A272D80DE000C0E3C /* KetoCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KetoCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A6BF47D272D80DE000C0E3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A6BF47F272D80DE000C0E3C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,12 +97,14 @@
 			path = utility;
 			sourceTree = "<group>";
 		};
-		8A3DB000274C78AF00A6C806 /* UIVIewController+Extention */ = {
+		8A3DB000274C78AF00A6C806 /* UIKit+Extention */ = {
 			isa = PBXGroup;
 			children = (
 				8A3DB001274C78C200A6C806 /* UIViewController+Extention.swift */,
+				8A61FA4F27AFA63F008B774A /* UIColor+Extension.swift */,
+				8A61FA5327AFA64C008B774A /* UIButton+Extension.swift */,
 			);
-			path = "UIVIewController+Extention";
+			path = "UIKit+Extention";
 			sourceTree = "<group>";
 		};
 		8A556C7D2780AE4D009620DA /* Model */ = {
@@ -144,7 +150,7 @@
 				8A556C7E2780AEDF009620DA /* API */,
 				8A556C7D2780AE4D009620DA /* Model */,
 				8A0E2C6D274A1636002517BB /* utility */,
-				8A3DB000274C78AF00A6C806 /* UIVIewController+Extention */,
+				8A3DB000274C78AF00A6C806 /* UIKit+Extention */,
 				8A6BF47D272D80DE000C0E3C /* AppDelegate.swift */,
 				8A6BF47F272D80DE000C0E3C /* SceneDelegate.swift */,
 				8A1DD784276832E100597F87 /* TabBarViewController.swift */,
@@ -362,8 +368,10 @@
 				8A556C832780B081009620DA /* WordPressModel.swift in Sources */,
 				8A6BF495272D8644000C0E3C /* Nutrient.swift in Sources */,
 				8A0E2C682749431D002517BB /* SettingViewController.swift in Sources */,
+				8A61FA5027AFA640008B774A /* UIColor+Extension.swift in Sources */,
 				8A57A6F427839EA500B6DAED /* PostFeedCollectionViewCell.swift in Sources */,
 				8A556C802780B055009620DA /* APIClient.swift in Sources */,
+				8A61FA5427AFA64C008B774A /* UIButton+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
