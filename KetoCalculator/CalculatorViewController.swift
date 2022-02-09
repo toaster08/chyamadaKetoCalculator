@@ -153,17 +153,15 @@ final class CalculatorViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
 
         if #available(iOS 13.0, *) {
-                guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else {
-                    return
-                }
+            guard traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) else {
+                return
+            }
 
-                if traitCollection.userInterfaceStyle == .dark {
-                    print("traitCollection:dark mode")
-                    setupGradient(frame: inputTextFieldsView.bounds)
-                } else if traitCollection.userInterfaceStyle == .light {
-                    print("traitCollection:light mode")
-                    setupGradient(frame: inputTextFieldsView.bounds)
-                }
+            if traitCollection.userInterfaceStyle == .dark {
+                setupGradient(frame: inputTextFieldsView.bounds)
+            } else if traitCollection.userInterfaceStyle == .light {
+                setupGradient(frame: inputTextFieldsView.bounds)
+            }
         }
     }
 
@@ -297,8 +295,6 @@ final class CalculatorViewController: UIViewController {
     }
 
     @objc private func calculate() {
-        //        calculateButton.animateButtonView()
-
         guard let protein = Double(inputProteinTextField.text ?? ""),
               let fat = Double(inputFatTextField.text ?? "") else {
             return
